@@ -1,0 +1,14 @@
+{
+    "name": "terraform",
+    "dockerComposeFile": "./docker-compose.yaml",
+    "shutdownAction": "stopCompose",
+    "service": "terraform",
+    "workspaceFolder": "/tmp/terra",
+    "extensions": [
+        "ms-python.python",
+        "auchenberg.vscode-browser-preview",
+        "grapecity.gc-excelviewer",
+        "mtxr.sqltools",
+        "visualstudioexptteam.vscodeintellicode",
+      ]
+}
