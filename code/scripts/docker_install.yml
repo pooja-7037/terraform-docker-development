@@ -1,0 +1,34 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - curl
+  - wget
+  - git
+  - vim
+  - unzip
+
+runcmd:
+  - sleep 20s
+  - curl -fsSL https://get.docker.com -o get-docker.sh
+  - sudo sh get-docker.sh
+  - sudo usermod -aG docker ubuntu
+  - mkdir -p /home/ubuntu/jenkins/data
+
+write_files:
+  - path: /home/ubuntu/jenkins/docker-compose.yaml 
+    content: |
+      version: "3.9"
+      services:
+          jenkins:
+              image: jenkins/jenkins:lts
+              container_name: jenkins
+              volumes:
+                - /home/ubuntu/jenkins/data:/var/jenkins_home 
+              ports:
+                - "80:8080"
+                - "50000:50000"
+
+runcmd:
+  - cd /home/ubuntu/jenkins/
+  - sudo chown ubuntu:ubuntu -R /home/ubuntu
+  - sudo -u ubuntu bash -c 'docker-compose up -d'
